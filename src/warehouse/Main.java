@@ -17,15 +17,36 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class Main extends Application {
+    private Scene loginScene;
+    private Scene mainScene;
+    private Stage primaryStage;
+
     @Override
     public void start(Stage primaryStage) {
+        this.primaryStage = primaryStage;
         GridPane gridPane = createGridPane();
 
-        Scene scene = new Scene(gridPane, 300, 257);
+        mainScene = createMainScene();
+
+        loginScene = new Scene(gridPane, 300, 275);
         primaryStage.setTitle("Hello World");
         primaryStage.setResizable(false);
-        primaryStage.setScene(scene);
+        primaryStage.setScene(loginScene);
         primaryStage.show();
+    }
+
+    private Scene createMainScene() {
+        GridPane gridPane = new GridPane();
+        gridPane.setAlignment(Pos.CENTER);
+        gridPane.setHgap(10);
+        gridPane.setVgap(10);
+        gridPane.setPadding(new Insets(25, 25, 25, 25));
+
+        Button logoutButton = new Button("Logout");
+        logoutButton.setOnMouseClicked(event -> primaryStage.setScene(loginScene));
+        gridPane.add(logoutButton, 0, 0);
+
+        return new Scene(gridPane, 300, 275);
     }
 
     private GridPane createGridPane() {
@@ -73,9 +94,8 @@ public class Main extends Application {
     }
 
     private void login() {
-
+        primaryStage.setScene(mainScene);
     }
-
 
     public static void main(String[] args) {
         launch(args);
