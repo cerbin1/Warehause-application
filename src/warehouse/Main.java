@@ -17,7 +17,6 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class Main extends Application {
-
     @Override
     public void start(Stage primaryStage) {
         GridPane gridPane = createGridPane();
@@ -62,10 +61,19 @@ public class Main extends Application {
         gridPane.add(text, 1, 6);
 
         signInButton.setOnAction(e -> {
-            text.setFill(Color.FIREBRICK);
-            text.setText("Sign in button pressed");
+            boolean userInDatabase = Database.isUserInDatabase(loginTextField.getText(), passwordField.getText());
+            if (userInDatabase) {
+                login();
+            } else {
+                text.setText("Login failed");
+                text.setFill(Color.FIREBRICK);
+            }
         });
         return gridPane;
+    }
+
+    private void login() {
+
     }
 
 
