@@ -1,4 +1,4 @@
-package sample;
+package warehouse;
 
 import javafx.application.Application;
 import javafx.geometry.Insets;
