@@ -4,10 +4,7 @@ import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
@@ -79,11 +76,18 @@ public class Main extends Application {
     private Scene createMainScene() {
         GridPane gridPane = createDefaultGridPane();
 
+        TableView tableView = new TableView();
+        TableColumn loginColumn = new TableColumn("Login");
+        TableColumn passwordColumn = new TableColumn("Password");
+
+        tableView.getColumns().addAll(loginColumn, passwordColumn);
+
         Button logoutButton = new Button("Logout");
         logoutButton.setOnMouseClicked(event -> primaryStage.setScene(loginScene));
-        gridPane.add(logoutButton, 0, 0);
+        gridPane.add(tableView, 0, 0);
+        gridPane.add(logoutButton, 0, 1);
 
-        return new Scene(gridPane, 300, 275);
+        return new Scene(gridPane, 300, 300);
     }
 
     private GridPane createDefaultGridPane() {
@@ -91,7 +95,6 @@ public class Main extends Application {
         gridPane.setAlignment(Pos.CENTER);
         gridPane.setHgap(10);
         gridPane.setVgap(10);
-        gridPane.setPadding(new Insets(25, 25, 25, 25));
         return gridPane;
     }
 
