@@ -1,7 +1,6 @@
 package warehouse;
 
 import javafx.application.Application;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -13,7 +12,6 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-import java.io.IOException;
 import java.sql.SQLException;
 
 public class Main extends Application {
@@ -23,7 +21,7 @@ public class Main extends Application {
     private UserDao userDao;
 
     @Override
-    public void start(Stage primaryStage) throws IOException, SQLException {
+    public void start(Stage primaryStage) throws SQLException {
         this.primaryStage = primaryStage;
         userDao = new UserDao();
 
