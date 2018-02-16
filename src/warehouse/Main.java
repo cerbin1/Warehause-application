@@ -16,14 +16,21 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import java.io.IOException;
+import java.sql.SQLException;
+
 public class Main extends Application {
     private Scene loginScene;
     private Scene mainScene;
     private Stage primaryStage;
+    private UserDao userDao;
 
     @Override
-    public void start(Stage primaryStage) {
+    public void start(Stage primaryStage) throws IOException, SQLException {
         this.primaryStage = primaryStage;
+
+        userDao = new UserDao();
+
         GridPane gridPane = createGridPane();
 
         mainScene = createMainScene();
@@ -82,8 +89,7 @@ public class Main extends Application {
         gridPane.add(text, 1, 6);
 
         signInButton.setOnAction(e -> {
-            boolean userInDatabase = Database.isUserInDatabase(loginTextField.getText(), passwordField.getText());
-            if (userInDatabase) {
+            if (userDao.isUserInDatabase(loginTextField.getText(), passwordField.getText())) {
                 login();
             } else {
                 text.setText("Login failed");
