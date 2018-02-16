@@ -28,40 +28,9 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException, SQLException {
         this.primaryStage = primaryStage;
-
         userDao = new UserDao();
 
-        GridPane gridPane = createGridPane();
-
-        mainScene = createMainScene();
-
-        loginScene = new Scene(gridPane, 300, 275);
-        primaryStage.setTitle("Hello World");
-        primaryStage.setResizable(false);
-        primaryStage.setScene(loginScene);
-        primaryStage.show();
-    }
-
-    private Scene createMainScene() {
-        GridPane gridPane = new GridPane();
-        gridPane.setAlignment(Pos.CENTER);
-        gridPane.setHgap(10);
-        gridPane.setVgap(10);
-        gridPane.setPadding(new Insets(25, 25, 25, 25));
-
-        Button logoutButton = new Button("Logout");
-        logoutButton.setOnMouseClicked(event -> primaryStage.setScene(loginScene));
-        gridPane.add(logoutButton, 0, 0);
-
-        return new Scene(gridPane, 300, 275);
-    }
-
-    private GridPane createGridPane() {
-        GridPane gridPane = new GridPane();
-        gridPane.setAlignment(Pos.CENTER);
-        gridPane.setHgap(10);
-        gridPane.setVgap(10);
-        gridPane.setPadding(new Insets(25, 25, 25, 25));
+        GridPane gridPane = createDefaultGridPane();
 
         Text title = new Text("Login to application");
         title.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
@@ -79,23 +48,50 @@ public class Main extends Application {
         PasswordField passwordField = new PasswordField();
         gridPane.add(passwordField, 1, 2);
 
+        final Text text = new Text();
+        text.setFill(Color.FIREBRICK);
+        gridPane.add(text, 1, 6);
+
         Button signInButton = new Button("Sign in");
+        signInButton.setOnAction(e -> {
+            if (userDao.isUserInDatabase(loginTextField.getText(), passwordField.getText())) {
+                login();
+                text.setText("");
+            } else {
+                text.setText("Login failed");
+            }
+        });
         HBox hBoxButton = new HBox(10);
         hBoxButton.setAlignment(Pos.BOTTOM_RIGHT);
         hBoxButton.getChildren().add(signInButton);
         gridPane.add(hBoxButton, 1, 4);
 
-        final Text text = new Text();
-        gridPane.add(text, 1, 6);
 
-        signInButton.setOnAction(e -> {
-            if (userDao.isUserInDatabase(loginTextField.getText(), passwordField.getText())) {
-                login();
-            } else {
-                text.setText("Login failed");
-                text.setFill(Color.FIREBRICK);
-            }
-        });
+        mainScene = createMainScene();
+
+        loginScene = new Scene(gridPane, 300, 275);
+        primaryStage.setTitle("Hello World");
+        primaryStage.setResizable(false);
+        primaryStage.setScene(loginScene);
+        primaryStage.show();
+    }
+
+    private Scene createMainScene() {
+        GridPane gridPane = createDefaultGridPane();
+
+        Button logoutButton = new Button("Logout");
+        logoutButton.setOnMouseClicked(event -> primaryStage.setScene(loginScene));
+        gridPane.add(logoutButton, 0, 0);
+
+        return new Scene(gridPane, 300, 275);
+    }
+
+    private GridPane createDefaultGridPane() {
+        GridPane gridPane = new GridPane();
+        gridPane.setAlignment(Pos.CENTER);
+        gridPane.setHgap(10);
+        gridPane.setVgap(10);
+        gridPane.setPadding(new Insets(25, 25, 25, 25));
         return gridPane;
     }
 
