@@ -15,16 +15,21 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import java.util.List;
+
 public class Main extends Application {
     private Scene loginScene;
     private Scene mainScene;
     private Stage primaryStage;
+
     private UserDAO userDAO;
+    private TableDAO tableDAO;
 
     @Override
     public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
         userDAO = new UserDAO();
+        tableDAO = new TableDAO();
 
         GridPane gridPane = createDefaultGridPane();
 
@@ -76,17 +81,14 @@ public class Main extends Application {
     private Scene createMainScene() {
         GridPane gridPane = createDefaultGridPane();
 
-        /*TableView tableView = new TableView();
-        TableColumn loginColumn = new TableColumn("Login");
-        TableColumn passwordColumn = new TableColumn("Password");
-
-        tableView.getColumns().addAll(loginColumn, passwordColumn);*/
+        List<Table> tables = tableDAO.getTables();
+        for (int i = 0; i < tables.size(); i++) {
+            gridPane.add(new Button(tables.get(i).getName()), 0, i);
+        }
 
         Button logoutButton = new Button("Logout");
         logoutButton.setOnMouseClicked(event -> primaryStage.setScene(loginScene));
-//        gridPane.add(tableView, 0, 0);
-        gridPane.add(new Text("siemano"), 0, 0);
-        gridPane.add(logoutButton, 0, 1);
+        gridPane.add(logoutButton, 3, tables.size());
 
         return new Scene(gridPane, 300, 300);
     }
