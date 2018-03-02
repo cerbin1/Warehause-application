@@ -2,7 +2,7 @@ package warehouse;
 
 import java.sql.*;
 
-public class UserDao {
+public class UserDAO {
 
     public boolean isUserInDatabase(User user) {
         Connection connection = DatabaseHelper.getConnection();
