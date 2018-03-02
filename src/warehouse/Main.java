@@ -49,7 +49,8 @@ public class Main extends Application {
 
         Button signInButton = new Button("Sign in");
         signInButton.setOnAction(e -> {
-            if (userDao.isUserInDatabase(loginTextField.getText(), passwordField.getText())) {
+            User user = new User(loginTextField.getText(), passwordField.getText());
+            if (userDao.isUserInDatabase(user)) {
                 login();
                 text.setText("");
             } else {

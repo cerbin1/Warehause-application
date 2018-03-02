@@ -4,15 +4,15 @@ import java.sql.*;
 
 public class UserDao {
 
-    public boolean isUserInDatabase(String login, String password) {
+    public boolean isUserInDatabase(User user) {
         Connection connection = DatabaseHelper.getConnection();
         if (connection == null) {
             throw new DatabaseConnectionException("Error while connecting to database");
         }
         try {
             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM users WHERE Login=? AND Password =?");
-            preparedStatement.setString(1, login);
-            preparedStatement.setString(2, password);
+            preparedStatement.setString(1, user.getLogin());
+            preparedStatement.setString(2, user.getPassword());
 
 
             ResultSet resultSet = preparedStatement.executeQuery();
