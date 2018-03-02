@@ -64,7 +64,7 @@ public class Main extends Application {
         mainScene = createMainScene();
 
         loginScene = new Scene(gridPane, 300, 275);
-        primaryStage.setTitle("Hello World");
+        primaryStage.setTitle("Warehouse application");
         primaryStage.setResizable(false);
         primaryStage.setScene(loginScene);
         primaryStage.show();
