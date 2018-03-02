@@ -12,8 +12,6 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-import java.sql.SQLException;
-
 public class Main extends Application {
     private Scene loginScene;
     private Scene mainScene;
@@ -21,7 +19,7 @@ public class Main extends Application {
     private UserDao userDao;
 
     @Override
-    public void start(Stage primaryStage) throws SQLException {
+    public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
         userDao = new UserDao();
 
